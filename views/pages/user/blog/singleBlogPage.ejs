@@ -1,0 +1,208 @@
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+<%- include("../../../common/head.ejs") %>
+
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="/">TechBlog</a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+		<!-- Navbar Search-->
+		<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+			<div class="input-group">
+				<input class="form-control" type="text" placeholder="Search for blogs" aria-label="Search for blogs" aria-describedby="btnNavbarSearch" />
+				<button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+			</div>
+		</form>
+		<!-- Navbar-->
+		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="/assets/img/avatars/<%= user.avatar %>.png" alt="user-avatar" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px;"></a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="/settings/">Settings</a></li>
+					<li><a class="dropdown-item" href="#!">Activity Log</a></li>
+					<li>
+						<hr class="dropdown-divider" />
+					</li>
+					<li><a class="dropdown-item" href="/logout">Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading">Core</div>
+						<a class="nav-link active bg-success" href="/dashboard">
+							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+							Dashboard
+						</a>
+						<div class="sb-sidenav-menu-heading">Pages</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+							CMS Management
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="/admin/cms/generalCMSPage">General</a>
+								<a class="nav-link" href="/admin/cms/homeCMSPage">Home</a>
+								<a class="nav-link" href="/admin/cms/aboutUsCMSPage">About Us</a>
+							</nav>
+						</div>
+
+						<a class="nav-link" href="/admin/allFAQsPage">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-circle-question"></i></div>
+							FAQ Management
+						</a>
+						<a class="nav-link" href="/admin/allTestimonialsPage">
+							<div class="sb-nav-link-icon"><i class="fa-regular fa-comments"></i></div>
+							Testimonials
+						</a>
+						<a class="nav-link" href="/admin/allCategoriesPage">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-icons"></i></div>
+							Category
+						</a>
+						<a class="nav-link" href="/admin/allTagsPage">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-tags"></i></div>
+							Tags
+						</a>
+						<!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                    Pages
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                                    data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                            data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                            aria-controls="pagesCollapseAuth">
+                                            Authentication
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </a>
+                                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                            data-bs-parent="#sidenavAccordionPages">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="login.html">Login</a>
+                                                <a class="nav-link" href="register.html">Register</a>
+                                                <a class="nav-link" href="password.html">Forgot Password</a>
+                                            </nav>
+                                        </div>
+                                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                            data-bs-target="#pagesCollapseError" aria-expanded="false"
+                                            aria-controls="pagesCollapseError">
+                                            Error
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                            </div>
+                                        </a>
+                                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                            data-bs-parent="#sidenavAccordionPages">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="401.html">401 Page</a>
+                                                <a class="nav-link" href="404.html">404 Page</a>
+                                                <a class="nav-link" href="500.html">500 Page</a>
+                                            </nav>
+                                        </div>
+                                    </nav>
+                                </div>
+                                <div class="sb-sidenav-menu-heading">Addons</div>
+                                <a class="nav-link" href="charts.html">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    Charts
+                                </a>
+                                <a class="nav-link" href="tables.html">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Tables
+                                </a> -->
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Logged in as: <%= user.role %>
+					</div>
+					<%= user.firstName + " " + user.lastName %>
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<%- include("../../../common/alerts.ejs") %>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Blog Details</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+						<li class="breadcrumb-item active">Blog Details</li>
+					</ol>
+					<div class="row border pt-2">
+						<div class="col-12">
+							<h2>
+								<%= blogResponse.title %> <span>
+									<% if(blogResponse.authorName._id.toString() === user._id.toString()) { %>
+										<span style="color: cornflowerblue;">by You</span>
+									<% } else { %>
+										<span style="color: cornflowerblue;">by <%= blogResponse.authorName.firstName + " " + blogResponse.authorName.lastName %></span>
+									<% } %>
+								</span>
+							</h2>
+							<h5>
+								<% blogResponse.tagDetails.map( tag=> { %>
+								<span class="mr-2 text-primary">#<%= tag.name %></span>
+								<% }) %>
+							</h5>
+							<img src="/uploads/blog_image/<%= blogResponse.image %>" alt="Featured Blog Image" style="width: 100%; height: 50vh; object-fit: cover;">
+							<div class="rounded my-2 " style="background-color: antiquewhite; padding: 20px;">
+								
+								<div class="d-flex align-items-center">
+									<% blogResponse.categoryDetails.map( category=> { %>
+									<span class="badge bg-success me-2">
+										<%= category.name %>
+									</span>
+									<% }) %>
+								</div>
+									
+									<% if (isLikedByThisUser !== undefined) { %>
+										<a href="/withdrawLikeBlog/<%= blogResponse._id %>"><i class="fa-solid fa-heart"></i></a>
+									<% } else { %>
+										<a href="/likeBlog/<%= blogResponse._id %>"><i class="fa-regular fa-heart"></i></a>
+									<% } %>
+									<span class="ms-1 me-2">
+										<%= blogResponse.likedCount %>
+									</span>
+									
+									<% if (isDislikedByThisUser !== undefined) { %>
+										<a href="/withdrawDislikeBlog/<%= blogResponse._id %>"><i class="fa-solid fa-thumbs-down"></i></a>
+									<% } else { %>
+										<a href="/dislikeBlog/<%= blogResponse._id %>"><i class="fa-regular fa-thumbs-down"></i></a>
+									<% } %>
+									<span class="ms-1 me-2">
+										<%= blogResponse.dislikedCount %>
+									</span>
+
+
+									<!-- <span class="ms-2"><%= // blogResponse.comments.length %> Comments</span> -->
+
+							</div>
+							<div class="p-3"><%- blogResponse.content %></div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<%- include("../../../common/footer.ejs") %>
+
+		</div>
+		<%- include("../../../common/scripts.ejs") %>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+		<script src="/assets/demo/chart-area-demo.js"></script>
+		<script src="/assets/demo/chart-bar-demo.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+		<script src="/js/datatables-simple-demo.js"></script>
+
+
+
+</body>
+
+</html>
